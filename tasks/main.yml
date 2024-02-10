@@ -39,13 +39,19 @@
     gitlab_package_name: "{{ gitlab_edition }}{{ gitlab_package_version_separator }}{{ gitlab_version }}"
   when: gitlab_version | default(false)
 
-- name: Install GitLab
-  package:
-    name: "{{ gitlab_package_name | default(gitlab_edition) }}"
-    state: present
-  async: "{{ gitlab_installation_async_time }}"
-  poll: 5
-  when: not gitlab_file.stat.exists
+- block:
+  - name: Install GitLab
+    package:
+      name: "{{ gitlab_package_name | default(gitlab_edition) }}"
+      state: present
+    async: "{{ gitlab_installation_async_time }}"
+    poll: 5
+    when: not gitlab_file.stat.exists
+
+  rescue:
+  - name: Notify installation failure
+    debug:
+      msg: "GitLab installation failed after {{ gitlab_installation_async_time }} seconds. Consider increasing the timeout or checking system resources."
 
 # Start and configure GitLab. Sometimes the first run fails, but after that,
 # restarts fix problems, so ignore failures on this run.
