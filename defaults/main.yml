@@ -81,3 +81,6 @@ gitlab_letsencrypt_auto_renew_hour: 1
 gitlab_letsencrypt_auto_renew_minute: 30
 gitlab_letsencrypt_auto_renew_day_of_month: "*/7"
 gitlab_letsencrypt_auto_renew: true
+
+# Install
+gitlab_installation_async_time: 600

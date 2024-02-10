@@ -26,6 +26,9 @@ The domain and URL at which the GitLab instance will be accessible. This is set 
 
     gitlab_git_data_dir: "/var/opt/gitlab/git-data"
 
+The `gitlab_installation_async_time` is a "timeout" value for GitLab installation.
+    gitlab_installation_async_time: "600"
+
 The `gitlab_git_data_dir` is the location where all the Git repositories will be stored. You can use a shared drive or any path on the system.
 
     gitlab_backup_path: "/var/opt/gitlab/backups"
